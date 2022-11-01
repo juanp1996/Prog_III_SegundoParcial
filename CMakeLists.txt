@@ -3,4 +3,4 @@ project(Prog_III_SegundoParcial)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Prog_III_SegundoParcial main.cpp)
+add_executable(Prog_III_SegundoParcial main.cpp txtMng.h)

@@ -1,3 +1,3 @@
-/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/Prog_III_SegundoParcial.dir
+C:/Users/juanp/OneDrive/Escritorio/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/Prog_III_SegundoParcial.dir
+C:/Users/juanp/OneDrive/Escritorio/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/juanp/OneDrive/Escritorio/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/rebuild_cache.dir
