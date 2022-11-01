@@ -55,6 +55,12 @@ build CMakeFiles/Prog_III_SegundoParcial.dir/main.cpp.obj: CXX_COMPILER__Prog_II
   OBJECT_DIR = CMakeFiles\Prog_III_SegundoParcial.dir
   OBJECT_FILE_DIR = CMakeFiles\Prog_III_SegundoParcial.dir
 
+build CMakeFiles/Prog_III_SegundoParcial.dir/txtMng.cpp.obj: CXX_COMPILER__Prog_III_SegundoParcial_Debug C$:/Users/juanp/OneDrive/Escritorio/Prog_III_SegundoParcial/txtMng.cpp || cmake_object_order_depends_target_Prog_III_SegundoParcial
+  DEP_FILE = CMakeFiles\Prog_III_SegundoParcial.dir\txtMng.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\Prog_III_SegundoParcial.dir
+  OBJECT_FILE_DIR = CMakeFiles\Prog_III_SegundoParcial.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Prog_III_SegundoParcial
@@ -63,7 +69,7 @@ build CMakeFiles/Prog_III_SegundoParcial.dir/main.cpp.obj: CXX_COMPILER__Prog_II
 #############################################
 # Link the executable Prog_III_SegundoParcial.exe
 
-build Prog_III_SegundoParcial.exe: CXX_EXECUTABLE_LINKER__Prog_III_SegundoParcial_Debug CMakeFiles/Prog_III_SegundoParcial.dir/main.cpp.obj
+build Prog_III_SegundoParcial.exe: CXX_EXECUTABLE_LINKER__Prog_III_SegundoParcial_Debug CMakeFiles/Prog_III_SegundoParcial.dir/main.cpp.obj CMakeFiles/Prog_III_SegundoParcial.dir/txtMng.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Prog_III_SegundoParcial.dir
