@@ -16,7 +16,7 @@ class txtMng{
 private:
     fstream archivo;
     fstream temp;
-    string direccion, direccion_temp , lineas, palabra;
+    string direccion, direccion_temp , lineas, palabra, *caracter;
     int Cant_lineas, Cant_palabras, Cant_letras;
 
 protected:
@@ -26,16 +26,28 @@ protected:
 public:
     txtMng();
     void ArgMng(int c , char *a);
-    void limpiar(string d, string d_temp);
-    bool checkCaracter(char p);
+    void limpiar();
+    bool checkCaracter(char &p);
     string checkPalabra(string pa , int l);
     void error(int);
     bool checkFileExt(const string& s);
-    void normal(string NombreArchivo);
-    void lnCount();
-    void contar_palabras();
+    void openFile(string d);
+
+    void setCantLineas();
+    int getCantLineas();
+    void setCantPalabras();
+    int getCantPalabras();
+    void setCantLetras();
+    int getCantLetras();
+    void setCaracter(string *p);
+    string getCaracter();
+
+
+    void basic(string d);
     void ocurrencias();
     void excluir();
+
+
 };
 
 
