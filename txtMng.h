@@ -23,11 +23,12 @@ protected:
 
 
 
+
 public:
     txtMng();
     void ArgMng(int c , char *a);
     void limpiar();
-    bool checkCaracter(char &p);
+    bool checkCaracter(char p);
     string checkPalabra(string pa , int l);
     void error(int);
     bool checkFileExt(const string& s);

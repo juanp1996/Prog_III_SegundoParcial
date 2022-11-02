@@ -57,11 +57,12 @@ void txtMng::limpiar()
         {
             stringstream p(palabra);
             Cant_palabras++;
-            temp << checkPalabra(palabra, p.str().size()) << endl;
+            temp << checkPalabra(palabra, p.str().size()) << endl; // <----- SACAR TEMP Y AGREGAR FUNCION DE HASH
         }
     }
     archivo.close();
     temp.close();
+
 }
 
 // checkea/corrige comienzo y fin de palabra recursivamente , si esta mal corrige
@@ -99,7 +100,7 @@ string txtMng::checkPalabra(string pa, int l)
 }
 
 // si devuelve true es una letra
-bool txtMng::checkCaracter(char &p)
+bool txtMng::checkCaracter(char p)   //<---- dividir en primer y segundo caracter
 {
 
     if (int(p) >= 97 && int(p) <= 122) //chequeo si es una letra (ASCII entre 97 y 122)
@@ -107,7 +108,6 @@ bool txtMng::checkCaracter(char &p)
         return true;
     }
     else if ((int(p)+32) >= 97 && (int(p)+32) <= 122 ){ //chequeo si es una letra mayuscula (ASCII entre 65 y 90)
-        p =
         return true;
     }else if(int(p) >= 160 && int(p) <= 163 || int(p) == 130){
         return true;
