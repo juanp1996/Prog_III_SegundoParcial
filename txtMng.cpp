@@ -57,7 +57,7 @@ void txtMng::limpiar()
         {
             stringstream p(palabra);
             Cant_palabras++;
-            temp << checkPalabra(palabra, p.str().size()) << endl; // <----- SACAR TEMP Y AGREGAR FUNCION DE HASH
+            checkPalabra(palabra, p.str().size()-1); // <----- SACAR TEMP Y AGREGAR FUNCION DE HASH
         }
     }
     archivo.close();
@@ -66,17 +66,17 @@ void txtMng::limpiar()
 }
 
 // checkea/corrige comienzo y fin de palabra recursivamente , si esta mal corrige
-string txtMng::checkPalabra(string pa, int l)
+void txtMng::checkPalabra(string pa, int l)
 {
-    char palabra_char[l + 1];
+    char palabra_char[l];
     string palabra_aux;
     strcpy(palabra_char, pa.c_str());
     if (checkCaracter(palabra_char[0]))
     {
-        if (checkCaracter(palabra_char[l + 1]))
+        if (checkCaracter(palabra_char[l]))
         {
             Cant_letras = Cant_letras + pa.length();  // voy sumando cantidad de letras
-            return pa;
+            resultado_cp = pa;
         }
         else
         {
