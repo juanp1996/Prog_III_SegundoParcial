@@ -14,7 +14,6 @@ void txtMng::ArgMng(int c, char *a)
     }
     else if (c > 2)
     {
-
     }
     else
     {
@@ -30,12 +29,12 @@ void txtMng::ArgMng(int c, char *a)
     }
 }
 
-//abrimos el archivo y lo preparamos para trabajarlo
+// abrimos el archivo y lo preparamos para trabajarlo
 void txtMng::openFile(string d)
 {
-    ifstream archivo(direccion);           //archivo de lectura
-    ofstream temp(direccion_temp);        //archivo de escritura
-    if (!archivo || !temp)                  //si no abre alguno de los 2 archivos, mandamos error
+    ifstream archivo(direccion);   // archivo de lectura
+    ofstream temp(direccion_temp); // archivo de escritura
+    if (!archivo || !temp)         // si no abre alguno de los 2 archivos, mandamos error
     {
         error(3);
     }
@@ -57,26 +56,26 @@ void txtMng::limpiar()
         {
             stringstream p(palabra);
             Cant_palabras++;
-            checkPalabra(palabra, p.str().size()-1); // <----- SACAR TEMP Y AGREGAR FUNCION DE HASH
+            setLong(p.str().size() - 1);
+            checkPalabra(); // <----- SACAR TEMP Y AGREGAR FUNCION DE HASH
         }
     }
     archivo.close();
     temp.close();
-
 }
 
 // checkea/corrige comienzo y fin de palabra recursivamente , si esta mal corrige
-void txtMng::checkPalabra(string pa, int l)
+void txtMng::checkPalabra()
 {
+    int l = getLong() - 1;
     char palabra_char[l];
     string palabra_aux;
-    strcpy(palabra_char, pa.c_str());
-    if (checkCaracter(palabra_char[0]))
+    strcpy(palabra_char, getPalabra().c_str());
+    if (checkPrimerCaracter(palabra_char[0]))
     {
-        if (checkCaracter(palabra_char[l]))
+        if (checkUltimoCaracter(palabra_char[l]))
         {
-            Cant_letras = Cant_letras + pa.length();  // voy sumando cantidad de letras
-            resultado_cp = pa;
+            Cant_letras = Cant_letras + getPalabra().length(); // voy sumando cantidad de letras
         }
         else
         {
@@ -85,7 +84,9 @@ void txtMng::checkPalabra(string pa, int l)
             {
                 palabra_aux.push_back(palabra_char[i]);
             }
-            checkPalabra(palabra_aux, l - 1);
+            setPalabra(palabra_aux);
+            setLong(getLong() - 1);
+            checkPalabra();
         }
     }
     else
@@ -95,28 +96,49 @@ void txtMng::checkPalabra(string pa, int l)
             palabra_aux.push_back(palabra_char[i]);
             /* esta mal el inicio**/
         }
-        checkPalabra(palabra_aux, l - 1);
+        setPalabra(palabra_aux);
+        setLong(getLong() - 1);
+        checkPalabra();
     }
 }
 
 // si devuelve true es una letra
-bool txtMng::checkCaracter(char p)   //<---- dividir en primer y segundo caracter
+bool txtMng::checkPrimerCaracter(char p) //<---- dividir en primer y segundo caracter
 {
-
-    if (int(p) >= 97 && int(p) <= 122) //chequeo si es una letra (ASCII entre 97 y 122)
+    if (int(p) >= 97 && int(p) <= 122) // chequeo si es una letra (ASCII entre 97 y 122)
     {
         return true;
     }
-    else if ((int(p)+32) >= 97 && (int(p)+32) <= 122 ){ //chequeo si es una letra mayuscula (ASCII entre 65 y 90)
+    else if ((int(p) + 32) >= 97 && (int(p) + 32) <= 122)
+    { // chequeo si es una letra mayuscula (ASCII entre 65 y 90)
+        esMayuscula(posicion);
+        posicion = 0;
         return true;
-    }else if(int(p) >= 160 && int(p) <= 163 || int(p) == 130){
+    }
+    else if (int(p) >= 160 && int(p) <= 163 || int(p) == 130)
+    {
         return true;
-    }else
+    }
+    else
         return false;
 }
 
+void txtMng::esMayuscula(int i)
+{
+    char palabra_char[longitud];
+    string palabra_aux;
+    strcpy(palabra_char, getPalabra().c_str());
+    palabra_char[i] = tolower(palabra_char[i]);
+    for (int j = 0; j <= longitud; ++j)
+    {
+        palabra_aux.push_back(palabra_char[j]);
+    }
+    setPalabra(palabra_aux);
+    posicion++;
+    checkPrimerCaracter(palabra_char[posicion]);
+}
 
-//corrobora terminacion .txt del archivo citado
+// corrobora terminacion .txt del archivo citado
 bool txtMng::checkFileExt(const std::string &s)
 {
     size_t l = s.find('.txt');
@@ -126,7 +148,6 @@ bool txtMng::checkFileExt(const std::string &s)
     }
     return false;
 }
-
 
 void txtMng::error(int e)
 {
@@ -148,26 +169,29 @@ void txtMng::error(int e)
  * SET / GET
  */
 
-void txtMng::setCantLineas() {}
-void txtMng::setCantPalabras() {}
-void txtMng::setCantLetras() {}
-
 int txtMng::getCantLineas() { return Cant_lineas; }
 int txtMng::getCantPalabras() { return Cant_palabras; }
 int txtMng::getCantLetras() { return Cant_letras; }
 
-void txtMng::setCaracter(string *c) {caracter = c;}
-string txtMng::getCaracter() {return *caracter;}
+string txtMng::getPalabra() { return palabra; }
+int txtMng::getLong() { return longitud; }
+
+void txtMng::setLong(int i)
+{
+    longitud = i;
+}
+void txtMng::setPalabra(string p)
+{
+    palabra = p;
+}
 
 /*
  *  METODOS PARA LOS ARGUMENTOS
  */
 
-
-void txtMng::basic(std::string d) {
+void txtMng::basic(std::string d)
+{
     openFile(d);
-
-
 }
 void txtMng::ocurrencias() {}
 void txtMng::excluir() {}
