@@ -38,11 +38,19 @@ public:
 
     void insertarPrimero(T dato);
 
+    void insertarPrimeroConOcurrencias(T dato , int ocurrencias);
+
+
+    void insertarConOcurrencia(int pos , T dato , int ocurrencias);
+
+
     void insertarUltimo(T dato);
 
     void remover(int pos);
 
     T getDato(int pos);
+
+    int getOcurrencia(int pos);
 
     void reemplazar(int pos, T dato);
 
@@ -55,35 +63,40 @@ public:
  * Constructor de la clase Lista
  * @tparam T
  */
-template <class T> Lista<T>::Lista() { inicio = nullptr; }
+template <class T>
+Lista<T>::Lista() { inicio = nullptr; }
 
 /**
  * Constructor por copia de la clase Lista
  * @tparam T
  * @param li
  */
-template <class T> Lista<T>::Lista(const Lista<T> &li) { inicio = li.inicio; }
+template <class T>
+Lista<T>::Lista(const Lista<T> &li) { inicio = li.inicio; }
 
 /**
  * Destructor de la clase Lista, se encarga de liberar la memoria de todos los
  * nodos utilizados en la lista
  * @tparam T
  */
-template <class T> Lista<T>::~Lista() { vaciar(); }
+template <class T>
+Lista<T>::~Lista() { vaciar(); }
 
 /**
  * Metodo para saber si la lista esta vacia
  * @tparam T
  * @return true si la lista esta vacia, sino false
  */
-template <class T> bool Lista<T>::esVacia() { return inicio == nullptr; }
+template <class T>
+bool Lista<T>::esVacia() { return inicio == nullptr; }
 
 /**
  * Metodo para obtener la cantidad de nodos de la lista
  * @tparam T
  * @return la cantidad de nodos de la lista
  */
-template <class T> int Lista<T>::getTamanio() {
+template <class T>
+int Lista<T>::getTamanio() {
     Nodo<T> *aux = inicio;
     int size = 0;
 
@@ -101,7 +114,38 @@ template <class T> int Lista<T>::getTamanio() {
  * @param pos lugar donde será insertado el dato
  * @param dato  dato a insertar
  */
-template <class T> void Lista<T>::insertar(int pos, T dato) {
+template <class T>
+void Lista<T>::insertarConOcurrencia(int pos, T dato , int ocurrencias) {
+    int posActual = 0;
+    Nodo<T> *aux = inicio, *nuevo;
+    nuevo = new Nodo<T>;
+    nuevo->setDato(dato);
+    nuevo->setOcurrencias(ocurrencias);
+    if (pos == 0) {
+        nuevo->setSiguiente(inicio);
+        inicio = nuevo;
+        return;
+    }
+
+    while (aux != nullptr && posActual < pos - 1) {
+        aux = aux->getSiguiente();
+        posActual++;
+    }
+
+    if (aux == nullptr) {
+        throw 404;
+    }
+
+    nuevo->setSiguiente(aux->getSiguiente());
+    aux->setSiguiente(nuevo);
+}
+template<class T>
+void insertarPrimeroConOcurrencias(T dato , int ocurrencias){ insertarConOcurrencia(0, dato); }
+
+
+
+template <class T>
+void Lista<T>::insertar(int pos, T dato) {
     int posActual = 0;
     Nodo<T> *aux = inicio, *nuevo;
     nuevo = new Nodo<T>;
@@ -125,6 +169,14 @@ template <class T> void Lista<T>::insertar(int pos, T dato) {
     nuevo->setSiguiente(aux->getSiguiente());
     aux->setSiguiente(nuevo);
 }
+
+
+
+
+
+
+
+
 
 /**
  * Inserta un nodo con el dato en la primera posicion
@@ -207,6 +259,21 @@ template <class T> T Lista<T>::getDato(int pos) {
     }
 
     return aux->getDato();
+}
+template <class T> int Lista<T>::getOcurrencia(int pos) {
+    Nodo<T> *aux = inicio;
+    int posActual = 0;
+
+    while (aux != nullptr && posActual < pos) {
+        aux = aux->getSiguiente();
+        posActual++;
+    }
+
+    if (aux == nullptr) {
+        throw 404;
+    }
+
+    return aux->getOcurrencias();
 }
 
 /**

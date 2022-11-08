@@ -9,6 +9,7 @@ private:
     long int  c2;
     string valor;
     int ocurrencias;
+    bool flag = true;
     nodo *next;
 
 public:
@@ -33,6 +34,12 @@ public:
         return valor;
     }
 
+    bool getFlag(){
+        return flag;
+    }
+    void setFlag(bool f){
+        this->flag = f;
+    }
 
     void setValor(string valor){
         this->valor = valor;
@@ -44,7 +51,6 @@ public:
     int getOcurrencia(){
         return ocurrencias;
     }
-
 
     void setNext(nodo *next){
         this->next = next;

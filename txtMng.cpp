@@ -10,30 +10,6 @@
  * */
 
 txtMng::txtMng() {}
-/* MANEJO DE LOS DISTINTOS CASOS DEPENDIENDO DEL ARGUMENTO **/
-void txtMng::ArgMng(int c, char *a)
-{
-    if (c == 1)
-    {
-        error(1);
-    }
-    else if (c > 2)
-    {
-    }
-    else
-    {
-
-        if (checkFileExt(a))
-        {
-            basic(a);
-
-        }
-        else
-        {
-            error(2);
-        }
-    }
-}
 
 // abrimos el archivo y lo preparamos para trabajarlo
 void txtMng::openFile(string d)
@@ -196,20 +172,59 @@ void txtMng::setPalabra(string p)
     palabra = p;
 }
 
+
+
+
+
+
+
+
 /*
  *  METODOS PARA LOS ARGUMENTOS
  */
 
-void txtMng::basic(std::string d)
+void txtMng::basic(string d)
 {
     openFile(d);
+    cout<<"Cantidad de lineas: "<< getCantLineas()<<endl;
+    cout<<"Cantidad de palabras: "<<getCantPalabras()<<endl;
+    cout<<"Cantidad de letras: "<<getCantLetras()<<endl;
+    cout<<"Cantidad de palabras diferentes: "<<getCantPalabras()-HashMap.getOcurrenciasTotales()<<endl;
 }
-void txtMng::ocurrencias() {}
 
-
-void txtMng::excluir() {
+void txtMng::palabras(int c , string d){
+    openFile(d);
+    for (int i = 0; i < lista.getTamanio() ; ++i) {
+        if (HashMap.copiar(nodo.djb2(lista.getDato(i),lista.getDato(i).length())))
+        lista_2.insertarPrimero(lista.getDato(i));
+    }
 
 }
+
+void txtMng::ocurrencias(int c , string d) {
+    openFile(d);
+    for (int i = 0; i < lista.getTamanio(); ++i) {
+        if (HashMap.copiar(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))) {
+            int ocurrencia = HashMap.getOcurrencias(nodo.djb2(lista.getDato(i), lista.getDato(i).length()));
+            lista_2.insertarPrimeroConOcurrencias(lista.getDato(i), ocurrencia);
+        }
+        int tamL2=lista_2.getTamanio();
+        quickSort(lista_2, 0, tamL2);
+        if (c!=0){
+            for (int j = 0; j <= c; ++j) {
+                print(lista_2.getDato(tamL2));
+                tamL2--;
+            }
+        }
+        while (tamL2!=0){
+            print(lista_2.getDato(tamL2));
+            tamL2--;
+        }
+    }
+}
+
+
+void txtMng::excluir() {;}
 
 
 void txtMng::mostrar(string palabra_arg) {
@@ -226,35 +241,73 @@ void txtMng::mostrar(string palabra_arg) {
 
 
 
+void txtMng::print(string p){
+    cout<<p<<endl;
+}
 
 
 
 
+bool txtMng::StrCmp(string d1, string d2) {
+    char *d1char;
+    char *d2char;
+    strcpy(d1char, d1.c_str());
+    strcpy(d2char, d2.c_str());
+    for (int i = 0; i <= MinLen(d1,d2) ; ++i) {
+        if (d1char[i]<122 || d2char[i]<122){
+            if (d1char[i]-d2char[i]<0){
 
-
-
-
-
-
-
-
-
-/*
-// limpiamos lo que no sea letra
-void txtMng::limpiar()
-{
-    while (!archivo.eof())
-    {
-        getline(archivo, lineas);
-        Cant_lineas++;
-        stringstream s(lineas);
-        while (getline(s, palabra, ' '))
-        {
-            stringstream p(palabra);
-            Cant_palabras++;
-            setLong(p.str().size() - 1);
-            checkPalabra();
+            }
+        }else{
+            //hay acento
         }
     }
-    archivo.close();
-}*/
+}
+
+
+int txtMng::MinLen(string d1 , string d2){
+    if(d1.length()<d2.length()){
+        return d1.length();
+    }else
+        return d2.length();
+}
+
+
+
+
+
+
+//plantilla quicksort murgui
+void txtMng::quickSort(Lista<string> li, int inicio, int fin)
+{
+    int i, j;
+    int pivot;
+    pivot = li.getTamanio()/2;
+    i = inicio;
+    j = fin;
+    do
+    {
+        while (li.getOcurrencia(i) < pivot)
+            i++;
+        while (li.getOcurrencia(j) > pivot)
+            j--;
+        if (i <= j)
+        {
+            aux.insertarConOcurrencia(i , li.getDato(i) , li.getOcurrencia(i));
+            //aux = arr[i];
+            li.insertarConOcurrencia(i,li.getDato(j),li.getOcurrencia(j));
+            //arr[i] = arr[j];
+            li.insertarConOcurrencia(j,aux.getDato(i),aux.getOcurrencia(i));
+            //arr[j] = aux;
+            i++;
+            j--;
+        }
+    } while (i <= j);
+    if (j > inicio)
+        quickSort(li, inicio, j);
+    if (i < fin)
+        quickSort(li, i, fin);
+}
+
+
+

@@ -10,6 +10,7 @@ template<class T>
 class Nodo{
 private:
     T dato;
+    int ocurrencias;
     Nodo<T> *siguiente;
 
 public:
@@ -20,6 +21,12 @@ public:
     void setDato(T d){
         dato = d;
     }
+    int getOcurrencias(){
+        return ocurrencias;
+    }
+    void setOcurrencias(int c){
+        ocurrencias = c;
+    }
 
     Nodo<T> *getSiguiente(){
         return siguiente;
@@ -28,8 +35,6 @@ public:
     void setSiguiente(Nodo<T> *siguiente){
         this->siguiente = siguiente;
     }
-
-
 };
 
 

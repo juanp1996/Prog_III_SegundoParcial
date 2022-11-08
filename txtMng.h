@@ -39,7 +39,6 @@ public:
     void error(int);
     bool checkFileExt(const string& s);
     void openFile(string d);
-
     void setCantLineas();
     int getCantLineas();
     void setCantPalabras();
@@ -56,13 +55,28 @@ public:
 
     nodo nodo;
     HashMap HashMap;
-    Lista<string> lista;
+    Lista <string> lista;
+    Lista <string> lista_2;
+    Lista <string> aux;
+
 
 
     void basic(string d);
-    void ocurrencias();
+    void palabras(int , string);
+    void ocurrencias(int , string);
     void excluir();
     void mostrar(string);
+    void print(string);
+
+
+
+
+
+
+    void quickSort(Lista<string>, int, int);
+    bool StrCmp(string,string);
+    int MinLen(string , string);
+
 
 
 };
