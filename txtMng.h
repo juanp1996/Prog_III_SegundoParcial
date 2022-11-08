@@ -10,25 +10,27 @@
 #include <vector>
 #include <cstring>
 #include <sstream>
+#include "HashMap.h"
+#include "lista.h"
+
 using namespace std;
 
 class txtMng{
 private:
     fstream archivo;
     fstream temp;
-    string direccion, direccion_temp , lineas, palabra, *caracter , resultado_cp;
-    int Cant_lineas, Cant_palabras, Cant_letras;
-    int longitud; //longitud palabra global
-    int posicion=0;
+    string direccion, direccion_temp , lineas, palabra, resultado_cp;
+    int Cant_lineas, Cant_palabras, Cant_letras, Cant_diferentes;
+    int longitud;
+    int posicion;
+
 
 protected:
-
-
-
 
 public:
     txtMng();
     void ArgMng(int c , char *a);
+    void primerPasada();
     void limpiar();
     bool checkPrimerCaracter(char p);
     bool checkUltimoCaracter(char p);
@@ -52,10 +54,15 @@ public:
     int getLong();
     void setPalabra(string p);
 
+    nodo nodo;
+    HashMap HashMap;
+    Lista<string> lista;
+
 
     void basic(string d);
     void ocurrencias();
     void excluir();
+    void mostrar(string);
 
 
 };

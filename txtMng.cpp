@@ -3,8 +3,13 @@
 //
 #include "txtMng.h"
 
-txtMng::txtMng() {}
+/*
+ *
+ * IMPLEMENTAR 2 FUNCIONES DE HASH DISTINTAS PARA REDUCIR LA PROBABILIDAD DE COLICCION.
+ *
+ * */
 
+txtMng::txtMng() {}
 /* MANEJO DE LOS DISTINTOS CASOS DEPENDIENDO DEL ARGUMENTO **/
 void txtMng::ArgMng(int c, char *a)
 {
@@ -21,6 +26,7 @@ void txtMng::ArgMng(int c, char *a)
         if (checkFileExt(a))
         {
             basic(a);
+
         }
         else
         {
@@ -33,22 +39,18 @@ void txtMng::ArgMng(int c, char *a)
 void txtMng::openFile(string d)
 {
     ifstream archivo(direccion);   // archivo de lectura
-    ofstream temp(direccion_temp); // archivo de escritura
-    if (!archivo || !temp)         // si no abre alguno de los 2 archivos, mandamos error
+    if (!archivo)         // si no abre alguno de los 2 archivos, mandamos error
     {
         error(3);
     }
     else
     {
-        limpiar();
+        primerPasada();
     }
 }
 
-// limpiamos lo que no sea letra
-void txtMng::limpiar()
-{
-    while (!archivo.eof())
-    {
+void txtMng::primerPasada() {
+    while (!archivo.eof()){
         getline(archivo, lineas);
         Cant_lineas++;
         stringstream s(lineas);
@@ -56,12 +58,17 @@ void txtMng::limpiar()
         {
             stringstream p(palabra);
             Cant_palabras++;
-            setLong(p.str().size() - 1);
-            checkPalabra(); // <----- SACAR TEMP Y AGREGAR FUNCION DE HASH
+            checkPalabra();
+            lista.insertarPrimero(getPalabra());
         }
     }
+    HashMap.NewTable(Cant_palabras*20); //TAMAÑO DE LA TABLA * 20
     archivo.close();
-    temp.close();
+    int pos= 0;
+    while(pos < lista.getTamanio()) {
+        HashMap.newNodo(nodo.djb2(lista.getDato(pos), lista.getDato(pos).length()), getPalabra());
+        pos++;
+    }
 }
 
 // checkea/corrige comienzo y fin de palabra recursivamente , si esta mal corrige
@@ -75,11 +82,11 @@ void txtMng::checkPalabra()
     {
         if (checkUltimoCaracter(palabra_char[l]))
         {
-            Cant_letras = Cant_letras + getPalabra().length(); // voy sumando cantidad de letras
+            int c = getPalabra().length();
+            Cant_letras = Cant_letras + c; // voy sumando cantidad de letras
         }
-        else
+        else /*esta mal el final**/
         {
-            /*esta mal el final**/
             for (int i = 0; i <= l; ++i)
             {
                 palabra_aux.push_back(palabra_char[i]);
@@ -115,13 +122,27 @@ bool txtMng::checkPrimerCaracter(char p) //<---- dividir en primer y segundo car
         posicion = 0;
         return true;
     }
-    else if (int(p) >= 160 && int(p) <= 163 || int(p) == 130)
+    else if (int(p) >= 160 && int(p) <= 163 || int(p) == 130)    //ACENTOS
     {
         return true;
     }
     else
         return false;
 }
+
+bool txtMng::checkUltimoCaracter(char p){  //DIFERENCIAMOS PRIMER CARACTER DEL ULTIMO EN LA BUSQUEDA DE MAYUSCULAS. CHECKULTI NO BUSCA MAYUSCULAS
+    if (int(p) >= 97 && int(p) <= 122) // chequeo si es una letra (ASCII entre 97 y 122)
+    {
+        return true;
+    }
+    else if (int(p) >= 160 && int(p) <= 163 || int(p) == 130)    //ACENTOS
+    {
+        return true;
+    }
+    else
+        return false;  //EN CASO DE DEVOLVER FALSE SE ELIMINA EL CARACTER
+}
+
 
 void txtMng::esMayuscula(int i)
 {
@@ -136,17 +157,6 @@ void txtMng::esMayuscula(int i)
     setPalabra(palabra_aux);
     posicion++;
     checkPrimerCaracter(palabra_char[posicion]);
-}
-
-// corrobora terminacion .txt del archivo citado
-bool txtMng::checkFileExt(const std::string &s)
-{
-    size_t l = s.find('.txt');
-    if (l != string::npos)
-    {
-        return true;
-    }
-    return false;
 }
 
 void txtMng::error(int e)
@@ -164,6 +174,7 @@ void txtMng::error(int e)
             break;
     }
 }
+
 
 /*
  * SET / GET
@@ -194,4 +205,56 @@ void txtMng::basic(std::string d)
     openFile(d);
 }
 void txtMng::ocurrencias() {}
-void txtMng::excluir() {}
+
+
+void txtMng::excluir() {
+
+}
+
+
+void txtMng::mostrar(string palabra_arg) {
+    if (HashMap.getOcurrencias(nodo.djb2(palabra_arg,palabra_arg.length()))>0){
+        /*
+         * ordenar
+         */
+    }else{
+        /*
+         * La palabra no existe
+         */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+// limpiamos lo que no sea letra
+void txtMng::limpiar()
+{
+    while (!archivo.eof())
+    {
+        getline(archivo, lineas);
+        Cant_lineas++;
+        stringstream s(lineas);
+        while (getline(s, palabra, ' '))
+        {
+            stringstream p(palabra);
+            Cant_palabras++;
+            setLong(p.str().size() - 1);
+            checkPalabra();
+        }
+    }
+    archivo.close();
+}*/

@@ -1,31 +1,66 @@
-#ifndef U05_HASH_HASHMAP_HASHENTRY_H_
-#define U05_HASH_HASHMAP_HASHENTRY_H_
+#include <string>
 
-template <class K, class T> class HashEntry {
+using namespace std;
+
+class nodo {
+
 private:
-    K clave;
-    T valor;
+    long int clave;
+    long int  c2;
+    string valor;
+    int ocurrencias;
+    nodo *next;
+
 public:
-    HashEntry(K clave, T valor){
+    nodo(){};
+
+    nodo(long int clave /*, long int c2*/ , string valor , int ocurrencias){
         this->clave = clave;
+        this->c2 = c2;
         this->valor = valor;
+        this->ocurrencias = ocurrencias;
     }
 
-    K getClave(){
+    long long getClave(){
         return clave;
     }
 
-    void setClave(K clave){
+    void setClave(long long clave){
         this->clave = clave;
     }
 
-    T getValor(){
+    string getValor(){
         return valor;
     }
 
-    void setValor(T valor){
+
+    void setValor(string valor){
         this->valor = valor;
     }
-};
 
-#endif // U05_HASH_HASHMAP_HASHENTRY_H_
+    void setOcurrencia(int o){
+        this->ocurrencias = o;
+    }
+    int getOcurrencia(){
+        return ocurrencias;
+    }
+
+
+    void setNext(nodo *next){
+        this->next = next;
+    }
+    nodo getNext(){
+        return *next;
+    }
+    long djb2(string pa , int s){
+        unsigned long int k;
+        char p[s];
+        strcpy(p,pa.c_str());
+        k = 5381;
+        for (int i = 0; i <= s ; ++i) {
+            k=((k << 5) + k ) + int(p[i]);
+        }
+        return k;
+    }
+
+};
