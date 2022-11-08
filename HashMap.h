@@ -34,7 +34,6 @@ public:
 };
 
 
-HashMap HashMap(){}
 
 void HashMap::NewTable(unsigned int tam) {
         tamanio = tam;

@@ -29,15 +29,12 @@ protected:
 
 public:
     txtMng();
-    void ArgMng(int c , char *a);
     void primerPasada();
-    void limpiar();
     bool checkPrimerCaracter(char p);
     bool checkUltimoCaracter(char p);
     void esMayuscula(int i);
     void checkPalabra();
     void error(int);
-    bool checkFileExt(const string& s);
     void openFile(string d);
     void setCantLineas();
     int getCantLineas();
@@ -68,17 +65,10 @@ public:
     void mostrar(string);
     void print(string);
 
-
-
-
-
+    
 
     void quickSort(Lista<string>, int, int);
-    bool StrCmp(string,string);
-    int MinLen(string , string);
-
-
-
+    void quickSortAlphabetical(Lista<string>, int , int);
 };
 
 

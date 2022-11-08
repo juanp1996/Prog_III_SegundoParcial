@@ -226,7 +226,6 @@ void txtMng::ocurrencias(int c , string d) {
 
 void txtMng::excluir() {;}
 
-
 void txtMng::mostrar(string palabra_arg) {
     if (HashMap.getOcurrencias(nodo.djb2(palabra_arg,palabra_arg.length()))>0){
         /*
@@ -245,51 +244,19 @@ void txtMng::print(string p){
     cout<<p<<endl;
 }
 
-
-
-
-bool txtMng::StrCmp(string d1, string d2) {
-    char *d1char;
-    char *d2char;
-    strcpy(d1char, d1.c_str());
-    strcpy(d2char, d2.c_str());
-    for (int i = 0; i <= MinLen(d1,d2) ; ++i) {
-        if (d1char[i]<122 || d2char[i]<122){
-            if (d1char[i]-d2char[i]<0){
-
-            }
-        }else{
-            //hay acento
-        }
-    }
-}
-
-
-int txtMng::MinLen(string d1 , string d2){
-    if(d1.length()<d2.length()){
-        return d1.length();
-    }else
-        return d2.length();
-}
-
-
-
-
-
-
 //plantilla quicksort murgui
 void txtMng::quickSort(Lista<string> li, int inicio, int fin)
 {
     int i, j;
     int pivot;
-    pivot = li.getTamanio()/2;
+    pivot = (inicio+fin) / 2; //!!!!!!!!!!!!!!!!!!REVISAR ACA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     i = inicio;
     j = fin;
     do
     {
-        while (li.getOcurrencia(i) < pivot)
+        while (li.getOcurrencia(i) < li.getOcurrencia(pivot))
             i++;
-        while (li.getOcurrencia(j) > pivot)
+        while (li.getOcurrencia(j) > li.getOcurrencia(pivot))
             j--;
         if (i <= j)
         {
@@ -307,7 +274,38 @@ void txtMng::quickSort(Lista<string> li, int inicio, int fin)
         quickSort(li, inicio, j);
     if (i < fin)
         quickSort(li, i, fin);
+
 }
 
-
+//adaptacion del otro quicksort
+void txtMng::quickSortAlphabetical(Lista<string> li, int inicio, int fin) {
+    int i, j;
+    int pivot;
+    pivot = (inicio+fin) / 2;
+    i = inicio;
+    j = fin;
+    do
+    {
+        while (strcmp(li.getDato(i).c_str(),li.getDato(pivot).c_str())<0)
+        i++;
+        while (strcmp(li.getDato(j).c_str(),li.getDato(pivot).c_str())>0)
+        j--;
+        if (i<=j) {
+            //aux = arr[i];
+            aux.insertar(i, li.getDato(i));
+            //arr[i] = arr[j];
+            li.insertar(i, li.getDato(j));
+            //arr[j] = aux;
+            li.insertar(j, aux.getDato(i));
+            i++;
+            j--;
+        }
+    } while (i <= j);
+        if (j > inicio){
+            quickSortAlphabetical(li, inicio, j);
+        }
+        if (i < fin){
+            quickSortAlphabetical(li, i, fin);
+        }
+}
 
