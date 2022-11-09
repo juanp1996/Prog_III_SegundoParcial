@@ -4,12 +4,7 @@
 
 #ifndef PROG_III_SEGUNDOPARCIAL_TXTMNG_H
 #define PROG_III_SEGUNDOPARCIAL_TXTMNG_H
-#include <string>
-#include <iostream>
 #include <fstream>
-#include <vector>
-#include <cstring>
-#include <sstream>
 #include "HashMap.h"
 #include "lista.h"
 
@@ -17,8 +12,8 @@ using namespace std;
 
 class txtMng{
 private:
-    fstream archivo;
-    fstream exc;
+    ifstream archivo;
+    ifstream exc;
     string direccion, direccion_temp , lineas, palabra, resultado_cp;
     int Cant_lineas, Cant_palabras, Cant_letras, Cant_diferentes;
     int longitud;
@@ -28,7 +23,6 @@ private:
 protected:
 
 public:
-    txtMng();
     void primerPasada();
     bool checkPrimerCaracter(char p);
     bool checkUltimoCaracter(char p);
@@ -70,9 +64,5 @@ public:
     void quickSort(Lista<string>, int, int);
     void quickSortAlphabetical(Lista<string>, int , int);
 };
-
-
-
-
 
 #endif //PROG_III_SEGUNDOPARCIAL_TXTMNG_H

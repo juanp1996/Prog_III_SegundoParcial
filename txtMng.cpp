@@ -1,13 +1,20 @@
 //
 // Created by juanp on 1/11/2022.
 //
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <cstring>
+#include <sstream>
 #include "txtMng.h"
-txtMng::txtMng() {}
+
+using namespace std;
 
 // abrimos el archivo y lo preparamos para trabajarlo
 void txtMng::openFile(string d)
 {
-    ifstream archivo(direccion);   // archivo de lectura
+    ifstream archivo(d);   // archivo de lectura
     if (!archivo)         // si no abre alguno de los 2 archivos, mandamos error
     {
         error(3);
@@ -203,7 +210,7 @@ void txtMng::palabras(int c){
 void txtMng::ocurrencias(int c) {
     for (int i = 0; i <= lista.getTamanio(); ++i) {
         if (HashMap.copiar(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))) {
-            lista_2.insertarPrimeroConOcurrencias(lista.getDato(i), HashMap.getOcurrencias(nodo.djb2(lista.getDato(i), lista.getDato(i).length())));
+            lista_2.insertarPrimeroConOcurrencias(lista.getDato(i), HashMap.getOcurrenciasHash(nodo.djb2(lista.getDato(i), lista.getDato(i).length())));
         }
     }
         int tamL2=lista_2.getTamanio();
@@ -267,7 +274,8 @@ void txtMng::mostrar(string str_argv) {
     for (int i = 0; i < lista_2.getTamanio() ; ++i) {
         if (HashMap.copiar(nodo.djb2(lista_2.getDato(i),lista_2.getDato(i).length())))
         {
-            lista_2.insertarConOcurrencia(i,lista_2.getDato(i),HashMap.getOcurrencias(nodo.djb2(lista_2.getDato(i),lista_2.getDato(i).length())));
+            lista_2.insertarConOcurrencia(i,lista_2.getDato(i), HashMap.getOcurrenciasHash(
+                    nodo.djb2(lista_2.getDato(i), lista_2.getDato(i).length())));
         }
     }
     quickSort(lista_2,0,lista_2.getTamanio());

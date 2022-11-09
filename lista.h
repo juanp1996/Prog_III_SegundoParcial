@@ -140,7 +140,9 @@ void Lista<T>::insertarConOcurrencia(int pos, T dato , int ocurrencias) {
     aux->setSiguiente(nuevo);
 }
 template<class T>
-void insertarPrimeroConOcurrencias(T dato , int ocurrencias){ insertarConOcurrencia(0, dato); }
+void Lista<T>::insertarPrimeroConOcurrencias(T dato , int ocurrencias){
+    insertarConOcurrencia(0, dato , ocurrencias);
+}
 
 
 
