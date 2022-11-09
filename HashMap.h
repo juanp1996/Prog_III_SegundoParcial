@@ -49,7 +49,7 @@ void HashMap::newNodo(long K, string valor) {
 }
 
 void HashMap::setPos(long K) {
-    unsigned int pos =  K % tamanio;
+    unsigned int pos =  K % (tamanio-5000);
     this->posicion = pos;
 }
 
@@ -111,9 +111,8 @@ bool HashMap::copiar(long k){
                 return tabla[getPos()]->getFlag();
         }else i++;
     }
+    return false;
 }
-
-
 void HashMap::setOcurrenciasTotales(int o) {this->ocurrenciasTotales = o;}
 int HashMap::getOcurrenciasTotales() { return ocurrenciasTotales;}
 #endif // U05_HASH_HASHMAP_HASHMAP_H_

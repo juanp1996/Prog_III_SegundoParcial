@@ -2,13 +2,6 @@
 // Created by juanp on 1/11/2022.
 //
 #include "txtMng.h"
-
-/*
- *
- * IMPLEMENTAR 2 FUNCIONES DE HASH DISTINTAS PARA REDUCIR LA PROBABILIDAD DE COLICCION.
- *
- * */
-
 txtMng::txtMng() {}
 
 // abrimos el archivo y lo preparamos para trabajarlo
@@ -40,7 +33,7 @@ void txtMng::primerPasada() {
     }
     HashMap.NewTable(Cant_palabras*20); //TAMAÑO DE LA TABLA * 20
     archivo.close();
-    int pos= 0;
+    int pos = 0;
     while(pos < lista.getTamanio()) {
         HashMap.newNodo(nodo.djb2(lista.getDato(pos), lista.getDato(pos).length()), getPalabra());
         pos++;
@@ -174,40 +167,45 @@ void txtMng::setPalabra(string p)
 
 
 
-
-
-
-
-
 /*
  *  METODOS PARA LOS ARGUMENTOS
  */
 
-void txtMng::basic(string d)
+void txtMng::basic()
 {
-    openFile(d);
     cout<<"Cantidad de lineas: "<< getCantLineas()<<endl;
     cout<<"Cantidad de palabras: "<<getCantPalabras()<<endl;
     cout<<"Cantidad de letras: "<<getCantLetras()<<endl;
     cout<<"Cantidad de palabras diferentes: "<<getCantPalabras()-HashMap.getOcurrenciasTotales()<<endl;
 }
 
-void txtMng::palabras(int c , string d){
-    openFile(d);
+void txtMng::palabras(int c){
     for (int i = 0; i < lista.getTamanio() ; ++i) {
-        if (HashMap.copiar(nodo.djb2(lista.getDato(i),lista.getDato(i).length())))
-        lista_2.insertarPrimero(lista.getDato(i));
+        if (HashMap.copiar(nodo.djb2(lista.getDato(i), lista.getDato(i).length())))
+            lista_2.insertarPrimero(lista.getDato(i));
     }
-
+    int tamL2=lista_2.getTamanio();
+    quickSortAlphabetical(lista_2,0,tamL2);
+    if (c!=0){
+        for (int i = 0; i <=c ; ++i) {
+            print(lista_2.getDato(i));
+        }
+    }else{
+        int i = 0;
+        while (tamL2!=0){
+            print(lista_2.getDato(i));
+            i++;
+            tamL2--;
+        }
+    }
 }
 
-void txtMng::ocurrencias(int c , string d) {
-    openFile(d);
-    for (int i = 0; i < lista.getTamanio(); ++i) {
+void txtMng::ocurrencias(int c) {
+    for (int i = 0; i <= lista.getTamanio(); ++i) {
         if (HashMap.copiar(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))) {
-            int ocurrencia = HashMap.getOcurrencias(nodo.djb2(lista.getDato(i), lista.getDato(i).length()));
-            lista_2.insertarPrimeroConOcurrencias(lista.getDato(i), ocurrencia);
+            lista_2.insertarPrimeroConOcurrencias(lista.getDato(i), HashMap.getOcurrencias(nodo.djb2(lista.getDato(i), lista.getDato(i).length())));
         }
+    }
         int tamL2=lista_2.getTamanio();
         quickSort(lista_2, 0, tamL2);
         if (c!=0){
@@ -220,25 +218,65 @@ void txtMng::ocurrencias(int c , string d) {
             print(lista_2.getDato(tamL2));
             tamL2--;
         }
-    }
 }
 
 
-void txtMng::excluir() {;}
-
-void txtMng::mostrar(string palabra_arg) {
-    if (HashMap.getOcurrencias(nodo.djb2(palabra_arg,palabra_arg.length()))>0){
-        /*
-         * ordenar
-         */
-    }else{
-        /*
-         * La palabra no existe
-         */
-    }
+void txtMng::excluir(string Ex, int con) {
+        ifstream exc(Ex);   // archivo de lectura
+        if (!exc)         // si no abre alguno de los 2 archivos, mandamos error
+        {
+            stringstream excluir(Ex);
+            while (getline(excluir,palabra,','))
+            {
+                checkPalabra();
+                stringstream p(palabra);
+                lista_2.insertarPrimero(getPalabra());
+            }
+        }
+        else
+        {
+            while (!exc.eof()) {
+                getline(exc, lineas);
+                stringstream s(lineas);
+                while (getline(s, palabra, ' ')) {
+                    stringstream p(palabra);
+                    checkPalabra();
+                    lista_2.insertarPrimero(getPalabra());
+                }
+            }
+        }
+        for (int i = 0; i < lista_2.getTamanio(); ++i) {
+            HashMap.copiar(nodo.djb2(lista_2.getDato(i),lista_2.getDato(i).length()));
+        }
+        if(con==1){
+            palabras(0);
+        }else{
+            ocurrencias(0);
+        }
 }
 
 
+void txtMng::mostrar(string str_argv) {
+    stringstream s( str_argv);
+    while (getline(s,palabra,','))
+    {
+        checkPalabra();
+        stringstream p(palabra);
+        lista_2.insertarPrimero(palabra);
+    }
+    for (int i = 0; i < lista_2.getTamanio() ; ++i) {
+        if (HashMap.copiar(nodo.djb2(lista_2.getDato(i),lista_2.getDato(i).length())))
+        {
+            lista_2.insertarConOcurrencia(i,lista_2.getDato(i),HashMap.getOcurrencias(nodo.djb2(lista_2.getDato(i),lista_2.getDato(i).length())));
+        }
+    }
+    quickSort(lista_2,0,lista_2.getTamanio());
+    int tamL2=lista_2.getTamanio();
+    for (int i = 0; i < lista_2.getTamanio() ; ++i) {
+        print(lista_2.getDato(tamL2));
+        tamL2--;
+    }
+}
 
 void txtMng::print(string p){
     cout<<p<<endl;
@@ -249,7 +287,7 @@ void txtMng::quickSort(Lista<string> li, int inicio, int fin)
 {
     int i, j;
     int pivot;
-    pivot = (inicio+fin) / 2; //!!!!!!!!!!!!!!!!!!REVISAR ACA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    pivot = (inicio+fin) / 2;
     i = inicio;
     j = fin;
     do
@@ -260,12 +298,12 @@ void txtMng::quickSort(Lista<string> li, int inicio, int fin)
             j--;
         if (i <= j)
         {
-            aux.insertarConOcurrencia(i , li.getDato(i) , li.getOcurrencia(i));
             //aux = arr[i];
-            li.insertarConOcurrencia(i,li.getDato(j),li.getOcurrencia(j));
+            aux.insertarConOcurrencia(i , li.getDato(i) , li.getOcurrencia(i));
             //arr[i] = arr[j];
-            li.insertarConOcurrencia(j,aux.getDato(i),aux.getOcurrencia(i));
+            li.insertarConOcurrencia(i,li.getDato(j),li.getOcurrencia(j));
             //arr[j] = aux;
+            li.insertarConOcurrencia(j,aux.getDato(i),aux.getOcurrencia(i));
             i++;
             j--;
         }
@@ -274,7 +312,6 @@ void txtMng::quickSort(Lista<string> li, int inicio, int fin)
         quickSort(li, inicio, j);
     if (i < fin)
         quickSort(li, i, fin);
-
 }
 
 //adaptacion del otro quicksort

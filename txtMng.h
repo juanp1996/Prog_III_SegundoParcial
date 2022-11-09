@@ -18,7 +18,7 @@ using namespace std;
 class txtMng{
 private:
     fstream archivo;
-    fstream temp;
+    fstream exc;
     string direccion, direccion_temp , lineas, palabra, resultado_cp;
     int Cant_lineas, Cant_palabras, Cant_letras, Cant_diferentes;
     int longitud;
@@ -58,14 +58,14 @@ public:
 
 
 
-    void basic(string d);
-    void palabras(int , string);
-    void ocurrencias(int , string);
-    void excluir();
+    void basic();
+    void palabras(int);
+    void ocurrencias(int);
+    void excluir(string,int );
     void mostrar(string);
     void print(string);
 
-    
+
 
     void quickSort(Lista<string>, int, int);
     void quickSortAlphabetical(Lista<string>, int , int);
