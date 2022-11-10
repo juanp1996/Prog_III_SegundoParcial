@@ -30,6 +30,7 @@ void txtMng::primerPasada() {
         getline(archivo, lineas);
         Cant_lineas++;
         stringstream s(lineas);
+        //cout<<"Linea: "<<lineas<<endl;
         while (getline(s, palabra, ' '))
         {
             stringstream p(palabra);
@@ -37,9 +38,12 @@ void txtMng::primerPasada() {
             setLong(palabra.length());
             setPalabra(palabra);
             checkPalabra();
+            cout<<"Palabra: "<<getPalabra()<<endl;
             lista.insertarPrimero(palabra);
+            cout<<"Inserto "<<palabra<<" en la lista"<<endl;
         }
     }
+
     HashMap.NewTable(Cant_palabras*20); //TAMAÑO DE LA TABLA * 20
     archivo.close();
     int pos = 0;
@@ -54,7 +58,6 @@ void txtMng::primerPasada() {
 // checkea/corrige comienzo y fin de palabra recursivamente , si esta mal corrige
 void txtMng::checkPalabra()
 {
-    cout<<"Entro a check palabras"<<endl;
     int l = getLong() - 1;
     string palabra_aux;
     char palabra_char[l];
