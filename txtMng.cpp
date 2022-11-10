@@ -15,42 +15,39 @@ using namespace std;
 void txtMng::openFile(string d)
 {
     archivo.open(d, ios::in);
-    if (!archivo)    // si no abre alguno de los 2 archivos, mandamos error
+    if (!archivo)    // si no abre el archivo, mandamos error
     {
         error(3);
     }
     else
     {
-        primerPasada();
+        primerPasada(); //SI ABRE, SE REALIZA PRIMER PASAD
     }
 }
 
 void txtMng::primerPasada() {
-    while (!archivo.eof()){
-        getline(archivo, lineas);
+    while (!archivo.eof()){ //MIENTRAS NO SEA EL FINAL DEL ARCHIVO
+        getline(archivo, lineas); //DIVIDIMOS EN LINEAS
         Cant_lineas++;
         stringstream s(lineas);
         //cout<<"Linea: "<<lineas<<endl;
-        while (getline(s, palabra, ' '))
+        while (getline(s, palabra, ' ')) //DIVIDIMOS EN PALABRAS
         {
             stringstream p(palabra);
             Cant_palabras++;
             setLong(palabra.length());
             setPalabra(palabra);
-            checkPalabra();
-            //cout<<"Palabra: "<<getPalabra()<<endl;
+            checkPalabra(); //LLAMAMOS PARA LIMPIAR LA PALABRA
             lista.insertarPrimero(palabra);
-            //cout<<"Inserto "<<palabra<<" en la lista"<<endl;
         }
     }
-
-    HashMap.NewTable(Cant_palabras*20); //TAMAÑO DE LA TABLA * 20
     archivo.close();
+    HashMap.NewTable(Cant_palabras*20); //CREAMOS LA TABLA HASH CON TAMANIO * 20 PARA DISMINUIR COLISIONES
 
     for (int i=0; i<lista.getTamanio(); i++){
-        HashMap.newNodo(nodo.djb2(lista.getDato(i), lista.getDato(i).length()), lista.getDato(i));
+        HashMap.newNodo(nodo.djb2(lista.getDato(i), lista.getDato(i).length()), lista.getDato(i)); //GENERAMOS LOS NODOS
     }
-    //cout<<"Termino primera pasada"<<endl;
+
 }
 
 // checkea/corrige comienzo y fin de palabra recursivamente , si esta mal corrige
@@ -60,13 +57,13 @@ void txtMng::checkPalabra()
     string palabra_aux;
     char palabra_char[l];
     strcpy(palabra_char, getPalabra().c_str());
-    if (checkPrimerCaracter(palabra_char[0]))
+    if (checkCaracter(palabra_char[0]))
     {
-        if (checkPrimerCaracter(palabra_char[l]))
+        if (checkCaracter(palabra_char[l])) //ENTRA SI YA ESTA BIEN
         {
-            Cant_letras = Cant_letras + getPalabra().length(); // voy sumando cantidad de letras
+            Cant_letras = Cant_letras + getPalabra().length(); //LLEGAMOS CON RECURSIVIDAD A LA PALABRA LIMPIA
         }
-        else /*esta mal el final**/
+        else //SI ESTA MAL EL FINAL
         {
             for (int i = 0; i < l; ++i)
             {
@@ -77,7 +74,7 @@ void txtMng::checkPalabra()
             checkPalabra();
         }
     }
-    else //esta mal la primera
+    else //ESTA MAL LA PRIMERA
     {
         for (int i = 1; i <= l; ++i)
         {
@@ -89,16 +86,16 @@ void txtMng::checkPalabra()
     }
 }
 
-// si devuelve true es una letra
-bool txtMng::checkPrimerCaracter(char p)
+
+bool txtMng::checkCaracter(char p) //SI DEVUELVE TRUE ES UNA LETRA
 {
-    if (int(p) >= 97 && int(p) <= 122) // chequeo si es una letra (ASCII entre 97 y 122)
+    if (int(p) >= 97 && int(p) <= 122) // CHEQUEAMOS MINUSCULAS
     {
         return true;
     }
     else if ((int(p) + 32) >= 97 && (int(p) + 32) <= 122 || int(p)==181 || int(p)==144 || int(p)==214 || int(p)==224 || int(p)==233)
-    { // chequeo si es una letra mayuscula (ASCII entre 65 y 90)
-        esMayuscula(posicion);
+    { // CHEQUEAMOS MAYUSCULAS Y MAYUSCULAS CON TILDE
+        esMayuscula(posicion); //LLAMADA RECURSIVA QUE VERIFICA SI TODA LA PALABRA ESTA EN MAYUSCULA
         posicion = 0;
         return true;
     }
@@ -110,33 +107,20 @@ bool txtMng::checkPrimerCaracter(char p)
         return false;
 }
 
-bool txtMng::checkUltimoCaracter(char p){  //DIFERENCIAMOS PRIMER CARACTER DEL ULTIMO EN LA BUSQUEDA DE MAYUSCULAS. CHECKULTI NO BUSCA MAYUSCULAS
-    if (int(p) >= 97 && int(p) <= 122) // chequeo si es una letra (ASCII entre 97 y 122)
-    {
-        return true;
-    }
-    else if (int(p) >= 160 && int(p) <= 163 || int(p) == 130)    //ACENTOS
-    {
-        return true;
-    }
-    else
-        return false;  //EN CASO DE DEVOLVER FALSE SE ELIMINA EL CARACTER
-}
-
 
 void txtMng::esMayuscula(int i)
 {
     char palabra_char[getLong() - 1];
     string palabra_aux;
     strcpy(palabra_char, getPalabra().c_str());
-    palabra_char[i] = tolower(palabra_char[i]);
+    palabra_char[i] = tolower(palabra_char[i]); //CAMBIAMOS LA MAYUSCULA EN LA POSICION POR LA MINUSCULA
     for (int i = 0; i < getLong(); ++i)
     {
         palabra_aux.push_back(palabra_char[i]);
     }
     setPalabra(palabra_aux);
     posicion++;
-    checkPrimerCaracter(palabra_char[posicion]);
+    checkCaracter(palabra_char[posicion]); //LLAMAMOS DE NUEVO CON LA SIGUIENTE POSICION
 }
 
 void txtMng::error(int e)
@@ -192,11 +176,11 @@ void txtMng::basic()
 
 void txtMng::palabras(int c){
     int j = 0;
-    string array[Cant_palabras - HashMap.getOcurrenciasTotales()];
-
+    string array[Cant_palabras - HashMap.getOcurrenciasTotales()]; //DECLARAMOS UN ARRAY PARA PODER HACER EL ORDENAMIENTO
     int tamLista = lista.getTamanio();
     for (int i = 0; i < tamLista ; ++i) {
-        if (HashMap.copiar(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))){
+        if (HashMap.getFlagTB(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))){ //SE COPIAN LAS PALABRAS UNA SOLA VEZ
+            HashMap.setFlagTB(nodo.djb2(lista.getDato(i), lista.getDato(i).length()),false);
             array[j] = lista.getDato(i);
             lista_2.insertarPrimero(lista.getDato(i));
             j++;
@@ -204,12 +188,12 @@ void txtMng::palabras(int c){
     }
 
     int tamL2=lista_2.getTamanio();
-    bubbleAlfabetico(array, tamL2);
-    if (c>0){
+    bubbleAlfabetico(array, tamL2); //MANDAMOS A ORDENAR
+    if (c>0){ //SI MANDA COMO ARGUMENTO QUE PRINTEE CIERTA CANTIDAD DE PALABRAS
         for (int j = 0; j < c; j++) {
             print(array[j]);
         }
-    }else {
+    }else { //SI NO MANDA NADA COMO ARGUMENTO DE CANTIDAD
         for (int i=0; i<= tamL2; i++){
             print(array[i]);
         }
@@ -286,13 +270,14 @@ void txtMng::excluir(string Ex, int con) {
             }
         }
         for (int i = 0; i < liEx.getTamanio(); ++i) {
-            HashMap.copiar(nodo.djb2(liEx.getDato(i),liEx.getDato(i).length()));
+            HashMap.setFlagTB(nodo.djb2(liEx.getDato(i),liEx.getDato(i).length()),false);  //seteamos a false la flag para evitar copias
         }
         if(con==1){
             palabras(0);
         }else{
             ocurrencias(0);
         }
+        exc.close();
 }
 
 

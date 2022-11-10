@@ -24,7 +24,7 @@ protected:
 
 public:
     void primerPasada();
-    bool checkPrimerCaracter(char p);
+    bool checkCaracter(char p);
     bool checkUltimoCaracter(char p);
     void esMayuscula(int i);
     void checkPalabra();
