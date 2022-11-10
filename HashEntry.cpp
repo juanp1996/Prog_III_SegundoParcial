@@ -6,10 +6,9 @@
 nodo::nodo() {}
 
 nodo::nodo(long int clave , string valor , int ocurrencias){
-    this->clave = clave;
-    this->c2 = c2;
-    this->valor = valor;
-    this->ocurrencias = ocurrencias;
+    setClave(clave);
+    setValor(valor);
+    setOcurrencia(ocurrencias);
 }
 
 long long nodo::getClave(){
@@ -49,6 +48,9 @@ long nodo::djb2(string pa , int s){
     k = 5381;
     for (int i = 0; i <= s ; ++i) {
         k=((k << 5) + k ) + int(p[i]);
+    }
+    if (k < 0){
+        k = k * (-1);
     }
     return k;
 }

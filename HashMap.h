@@ -8,10 +8,10 @@
 class HashMap{
 private:
 
-    unsigned int tamanio;
+    unsigned int tamanio = 0;
     nodo **tabla;
-    int ocurrenciasTotales;
-    int posicion;
+    int ocurrenciasTotales = 0;
+    int posicion ;
 
 public:
 

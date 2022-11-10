@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug"
+			"value" : "/Users/agustinglaiel/Desktop/Prog_III_SegundoParcial/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial"
+			"value" : "/Users/agustinglaiel/Desktop/Prog_III_SegundoParcial"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -1087,7 +1087,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug"
+			"value" : "/Users/agustinglaiel/Desktop/Prog_III_SegundoParcial/cmake-build-debug"
 		},
 		{
 			"name" : "Prog_III_SegundoParcial_IS_TOP_LEVEL",
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial"
+			"value" : "/Users/agustinglaiel/Desktop/Prog_III_SegundoParcial"
 		}
 	],
 	"kind" : "cache",

@@ -16,7 +16,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/3.21.1/CMakeSystem.cmake"
+			"path" : "cmake-build-debug/CMakeFiles/3.21.1/CMakeSystem.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -460,7 +460,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/3.21.1/CMakeCCompiler.cmake"
+			"path" : "cmake-build-debug/CMakeFiles/3.21.1/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -879,7 +879,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/3.21.1/CMakeCXXCompiler.cmake"
+			"path" : "cmake-build-debug/CMakeFiles/3.21.1/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -1018,7 +1018,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/3.21.1/CMakeCCompiler.cmake"
+			"path" : "cmake-build-debug/CMakeFiles/3.21.1/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -1117,14 +1117,14 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug/CMakeFiles/3.21.1/CMakeCXXCompiler.cmake"
+			"path" : "cmake-build-debug/CMakeFiles/3.21.1/CMakeCXXCompiler.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial/cmake-build-debug",
-		"source" : "/Users/agustinglaiel/Desktop/Sistemas/Primer año/Segundo Semestre/Programación III/Proyecto/Prog_III_SegundoParcial"
+		"build" : "/Users/agustinglaiel/Desktop/Prog_III_SegundoParcial/cmake-build-debug",
+		"source" : "/Users/agustinglaiel/Desktop/Prog_III_SegundoParcial"
 	},
 	"version" : 
 	{

@@ -15,7 +15,7 @@ private:
     ifstream archivo;
     ifstream exc;
     string direccion, direccion_temp , lineas, palabra, resultado_cp;
-    int Cant_lineas, Cant_palabras, Cant_letras, Cant_diferentes;
+    int Cant_lineas = 0, Cant_palabras = 0, Cant_letras = 0, Cant_diferentes;
     int longitud;
     int posicion;
 
@@ -48,7 +48,8 @@ public:
     HashMap HashMap;
     Lista <string> lista;
     Lista <string> lista_2;
-    Lista <string> aux;
+    char *aux;
+    string auxiliar;
 
 
 
@@ -61,8 +62,8 @@ public:
 
 
 
-    void quickSort(Lista<string>, int, int);
-    void quickSortAlphabetical(Lista<string>, int , int);
+    void bubbleSort(string *, int );
+    void bubbleAlfabetico(string *, int);
 };
 
 #endif //PROG_III_SEGUNDOPARCIAL_TXTMNG_H

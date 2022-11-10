@@ -6,7 +6,6 @@ class nodo {
 
 private:
     long int clave;
-    long int  c2;
     string valor;
     int ocurrencias;
     bool flag = true;
