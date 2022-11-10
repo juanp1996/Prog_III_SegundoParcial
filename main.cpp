@@ -7,6 +7,9 @@ using namespace std;
 
 int main(int argc , char **argv)  //argc: Cant de arg  -- argv: C/U de los argumentos
 {
+    clock_t begin;
+    cout<<"Comenzando a medir el tiempo"<<endl;
+    begin = clock();
     for (int i= 0; i<argc; i++){
         cout<<"Argumento numero: "<<i<<endl;
         cout<<"Argumento: "<<argv[i]<<endl;
@@ -66,6 +69,10 @@ int main(int argc , char **argv)  //argc: Cant de arg  -- argv: C/U de los argum
             }
         }
     }
+    clock_t end = clock();
 
+    double elapsed_secs = static_cast<double>(end - begin) / CLOCKS_PER_SEC;
+
+    cout << "Tardo elapsed_secs" << elapsed_secs << "\n" <<endl;
     return 0;
 }

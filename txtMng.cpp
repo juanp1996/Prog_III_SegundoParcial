@@ -205,12 +205,12 @@ void txtMng::ocurrencias(int c) {
     int j = 0;
     int largo = Cant_palabras - HashMap.getOcurrenciasTotales();
     //cout<<"Largo: "<<largo<<endl;
-    string array[largo];
+    string array[largo]; //DECLARAMOS UN ARRAY PARA PODER HACER EL ORDENAMIENTO
     for (int i = 0; i < lista.getTamanio(); ++i) {
         //cout<<"Dato: "<<i<<": "<<lista.getDato(i)<<endl;
-        if (HashMap.getFlagTB(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))) {
+        if (HashMap.getFlagTB(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))) { //UN FLAG PARA INGRESAR O NO LA PALABRA
             //cout<<"true"<<endl;
-            HashMap.setFlagTB(nodo.djb2(lista.getDato(i), lista.getDato(i).length()),false );
+            HashMap.setFlagTB(nodo.djb2(lista.getDato(i), lista.getDato(i).length()),false ); //SETEAMOS FALSE PARA EVITAR COPIAS
             array[j] = lista.getDato(i);
             //cout<<"Copio la palabra"<<endl;
             j++;
@@ -239,10 +239,10 @@ void txtMng::ocurrencias(int c) {
 
 
 void txtMng::excluir(string Ex, int con) {
-        exc.open(Ex, ios::in);// archivo de lectura
-        if (!exc)         // si no abre alguno de los 2 archivos, mandamos error
+        exc.open(Ex, ios::in);// ARCHIVO EXTERNO DE LECTURA
+        if (!exc)         // SI NO ABRE MANDAMOS ERROR
         {
-            cout<<"No es un archivo"<<endl;
+            cout<<"No es un archivo"<<endl; //RECONOCE QUE SE INGRESO UNA LINEA DE CARACTERES Y NO UN .TXT
             stringstream excluir(Ex);
             cout<<Ex<<endl;
             while (getline(excluir,palabra,','))
@@ -269,7 +269,7 @@ void txtMng::excluir(string Ex, int con) {
             }
         }
         for (int i = 0; i < liEx.getTamanio(); ++i) {
-            HashMap.setFlagTB(nodo.djb2(liEx.getDato(i),liEx.getDato(i).length()),false);  //seteamos a false la flag para evitar copias
+            HashMap.setFlagTB(nodo.djb2(liEx.getDato(i),liEx.getDato(i).length()),false);  //SETEAMOS FALSE PARA EVITAR COPIAS
         }
         if(con==1){
             palabras(0);
@@ -294,14 +294,14 @@ void txtMng::mostrar(string str_argv) {
     }
     lista_2.print();
     for (int i = 0; i < lista_2.getTamanio(); ++i) {
-        if (HashMap.existe(nodo.djb2(lista_2.getDato(i), lista_2.getDato(i).length()))) {
+        if (HashMap.existe(nodo.djb2(lista_2.getDato(i), lista_2.getDato(i).length()))) { //VERIFICA SI EXISTE LA PALABRA EN EL HASH
             //cout<<"true"<<endl;
             array[j] = lista_2.getDato(i);
             //cout<<"Copio la palabra: "<<lista_2.getDato(i)<<endl;
             j++;
             //cout<<"j: "<<j<<endl;
         } else{
-            //cout<<"La palabra "<<lista_2.getDato(i)<<" no esta en el texto"<<endl;
+            cout<<"La palabra "<<lista_2.getDato(i)<<" no esta en el texto"<<endl;
         }
     }
     bubbleSort(array, j);

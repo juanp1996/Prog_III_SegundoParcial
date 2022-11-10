@@ -44,15 +44,10 @@ int nodo::getOcurrenciaNodoHash(){
 long long nodo::djb2(string pa , int s){
     unsigned long long k;
     int c;
-    //char p[s];
-    //strcpy(p,pa.c_str());
     k = 5381;
     for (auto x:pa) {
         c = x;
         k=((k << 5) + k ) + c;
-    }
-    if (k < 0){
-        k = k*(-1);
     }
     return k/3;
 }
