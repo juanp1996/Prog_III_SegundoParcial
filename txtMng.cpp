@@ -225,7 +225,7 @@ void txtMng::ocurrencias(int c) {
             print(array[j]);
            }
         cout<<"TERMINO OCURRENCIAS"<<endl;
-        cout<<"Tamanio lista: "<<lista_2.getTamanio();
+        cout<<"Tamanio lista: "<<lista.getTamanio();
     }else {
         for (int i=j; i>=0; i--){
             print(array[i]);
