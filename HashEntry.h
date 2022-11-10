@@ -5,14 +5,14 @@ using namespace std;
 class nodo {
 
 private:
-    long int clave;
+    long long clave;
     string valor;
     int ocurrencias;
     bool flag = true;
 
 public:
     nodo();
-    nodo(long int , string , int);
+    nodo(long long , string , int);
     long long getClave();
     void setClave(long long clave);
     string getValor();
@@ -21,6 +21,6 @@ public:
     void setValor(string);
     void setOcurrencia(int);
     int getOcurrenciaNodoHash();
-    long djb2(string, int);
+    long long djb2(string, int);
 
 };

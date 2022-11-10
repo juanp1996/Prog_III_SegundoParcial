@@ -11,14 +11,18 @@ void HashMap::NewTable(unsigned int tam) {
     }
 }
 
-void HashMap::newNodo(long K, string valor) {
+void HashMap::newNodo(long long K, string valor) {
     setPos(K);
     int p = getPos();
+    cout<<"Pos: "<<getPos()<<endl;
     put(p,K,valor);
 }
 
-void HashMap::setPos(long K) {
-    unsigned int pos =  K % tamanio;
+void HashMap::setPos(long long K) {
+    unsigned int pos =  (K % tamanio);
+    if (pos<0){
+        pos = pos*(-1);
+    }
     posicion = pos;
 }
 
@@ -26,13 +30,12 @@ int HashMap::getPos(){
     return posicion;
 }
 
-void HashMap::put(int pos, long clave, string valor) {
+void HashMap::put(int pos, long long clave, string valor) {
     if (tabla[pos]!=NULL)
     {
         //colicion
         if (clave == tabla[pos]->getClave()){
             tabla[pos]->setOcurrencia(tabla[pos]->getOcurrenciaNodoHash() + 1);
-            cout<<"Nueva ocurrencia de: "<<tabla[pos]->getValor()<<" ocurrencias:"<<tabla[pos]->getOcurrenciaNodoHash()<<endl;
             setOcurrenciasTotales(getOcurrenciasTotales()+1);
         }else{
             put(pos+1 , clave , valor);
@@ -44,7 +47,7 @@ void HashMap::put(int pos, long clave, string valor) {
 }
 
 
-void HashMap::excluir(long k){
+void HashMap::excluir(long long k){
     setPos(k);
     int i = getPos();
     while (tabla[i] != NULL){
@@ -56,7 +59,7 @@ void HashMap::excluir(long k){
     }
 }
 
-int HashMap::getOcurrenciasHash(long k) {
+int HashMap::getOcurrenciasHash(long long k) {
     setPos(k);
     int i = getPos();
     while (tabla[i] != NULL){
@@ -69,7 +72,7 @@ int HashMap::getOcurrenciasHash(long k) {
 }
 
 
-bool HashMap::copiar(long k){
+bool HashMap::copiar(long long k){
     setPos(k);
     int i = getPos();
     while (tabla[i] != NULL){
@@ -86,7 +89,7 @@ bool HashMap::copiar(long k){
 void HashMap::setOcurrenciasTotales(int o) {this->ocurrenciasTotales = o;}
 int HashMap::getOcurrenciasTotales() { return ocurrenciasTotales;}
 
-bool HashMap::existe(long k ) {
+bool HashMap::existe(long long k ) {
     setPos(k);
     int i = getPos();
     while (tabla[i] != NULL){

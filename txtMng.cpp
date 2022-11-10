@@ -38,20 +38,21 @@ void txtMng::primerPasada() {
             setLong(palabra.length());
             setPalabra(palabra);
             checkPalabra();
-            cout<<"Palabra: "<<getPalabra()<<endl;
+            //cout<<"Palabra: "<<getPalabra()<<endl;
             lista.insertarPrimero(palabra);
-            cout<<"Inserto "<<palabra<<" en la lista"<<endl;
+            //cout<<"Inserto "<<palabra<<" en la lista"<<endl;
         }
     }
 
     HashMap.NewTable(Cant_palabras*20); //TAMAÑO DE LA TABLA * 20
     archivo.close();
-    int pos = 0;
 
-    while(pos < lista.getTamanio()) {
-        HashMap.newNodo(nodo.djb2(lista.getDato(pos), lista.getDato(pos).length()), lista.getDato(pos));
-        pos++;
+    for (int i=0; i<lista.getTamanio(); i++){
+        HashMap.newNodo(nodo.djb2(lista.getDato(i), lista.getDato(i).length()), lista.getDato(i));
+        cout<<"Palabra: "<<lista.getDato(i);
     }
+
+
     cout<<"Termino primera pasada"<<endl;
 }
 
@@ -232,14 +233,18 @@ void txtMng::ocurrencias(int c) {
         }
     }
     int tamL2=lista_2.getTamanio();
+
     for (int i=0 ; i<tamL2; i++){
         array[i] = lista_2.getDato(i);
     }
     bubbleSort(array, tamL2);
+    cout<<"YA ORDENO"<<endl;
     if (c>0){
         for (int j = tamL2; j>tamL2 - c - 1; j--) {
             print(array[j]);
            }
+        cout<<"TERMINO OCURRENCIAS"<<endl;
+        cout<<"Tamanio lista: "<<lista_2.getTamanio();
     }else {
         for (int i=0; i<=tamL2; i++){
             print(array[i]);

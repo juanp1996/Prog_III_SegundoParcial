@@ -2,10 +2,10 @@
 // Created by juanp on 9/11/2022.
 //
 #include "HashEntry.h"
-
+#include "iostream"
 nodo::nodo() {}
 
-nodo::nodo(long int clave , string valor , int ocurrencias){
+nodo::nodo(long long clave , string valor , int ocurrencias){
     setClave(clave);
     setValor(valor);
     setOcurrencia(ocurrencias);
@@ -41,16 +41,18 @@ int nodo::getOcurrenciaNodoHash(){
     return ocurrencias;
 }
 
-long nodo::djb2(string pa , int s){
-    unsigned long int k;
-    char p[s];
-    strcpy(p,pa.c_str());
+long long nodo::djb2(string pa , int s){
+    unsigned long long k;
+    int c;
+    //char p[s];
+    //strcpy(p,pa.c_str());
     k = 5381;
-    for (int i = 0; i <= s ; ++i) {
-        k=((k << 5) + k ) + int(p[i]);
+    for (auto x:pa) {
+        c = x;
+        k=((k << 5) + k ) + c;
     }
     if (k < 0){
-        k = k * (-1);
+        k = k*(-1);
     }
-    return k;
+    return k/3;
 }

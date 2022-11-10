@@ -18,18 +18,18 @@ public:
     HashMap(){};
 
     void NewTable(unsigned int tam);
-    void newNodo(long , string);
+    void newNodo(long long , string);
 
 
-    void put(int , long int , string);
-    void setPos(long);
+    void put(int , long long , string);
+    void setPos(long long);
     int getPos();
-    bool copiar(long k);
-    bool existe(long );
+    bool copiar(long long k);
+    bool existe(long long );
 
 
-    void excluir(long);
-    int getOcurrenciasHash(long);
+    void excluir(long long);
+    int getOcurrenciasHash(long long);
     int getOcurrenciasTotales();
     void setOcurrenciasTotales(int o);
 };
