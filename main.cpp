@@ -22,28 +22,48 @@ int main(int argc , char **argv)  //argc: Cant de arg  -- argv: C/U de los argum
         txtMng.basic();
         cout<<"Termino"<<endl;
     }
+
     if (argc == 3) {
         cout << "Empieza" << endl;
         if (strcmp(argv[1], "-palabras") == 0) {
-            cout << "Entro a palabras" << endl;
             string a = argv[2];
-            cout<<a<<endl;
             txtMng.openFile(a);
-            cout<<"Se hizo el open file"<<endl;
             txtMng.palabras(0);
+        }else if (strcmp(argv[1], "-ocurrencias") == 0) {
+            string a = argv[2];
+            txtMng.openFile(a);
+            txtMng.ocurrencias(0);
+    }
+    }
+    if (argc == 4) {
+        if (strcmp(argv[1], "-palabras") == 0) {
+            string a = argv[3];
+            txtMng.openFile(a);
+            cout<<"Paso open"<<endl;
+            txtMng.palabras(atoi(argv[2]));
+            cout<<"finalizo"<<endl;
+        } else if (strcmp(argv[1], "-ocurrencias") == 0) {
+            string a = argv[3];
+            txtMng.openFile(a);
+            txtMng.ocurrencias(atoi(argv[2]));
         }
     }
-    /*if (argc == 3) {
-        cout << "Empieza" << endl;
-        if (strcmp(argv[1], "-ocurrencias") == 0) {
-            cout << "Entro a ocurrencias" << endl;
-            string a = argv[2];
-            cout<<a<<endl;
-            txtMng.openFile(a);
-            cout<<"Se hizo el open file"<<endl;
-            txtMng.ocurrencias(0);
+    if (argc == 5){
+        if (argv[1]=="-palabras"){
+            if (argv[2]=="-excluir" || argv[2]=="-excluirf"){
+                txtMng.openFile(argv[5]);
+                txtMng.excluir(argv[4] , 1);
+            }else
+                cout<<"argumento invalido"<<endl;
+
+        }else if (strcmp(argv[1], "-ocurrencias") == 0){
+            if ((strcmp(argv[2], "-excluir") == 0) || (strcmp(argv[2], "-excluirf") == 0)){
+                txtMng.openFile(argv[2]);
+                txtMng.excluir(argv[4] , 2);
+            }
+            cout<<"argumento invalido"<<endl;
         }
-    }*/
+    }
 
     /*
     switch (argc) {

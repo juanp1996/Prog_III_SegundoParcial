@@ -193,19 +193,18 @@ void txtMng::palabras(int c){
     int j = 0;
     string array[getCantPalabras() - HashMap.getOcurrenciasTotales()];
     int tamLista = lista.getTamanio();
-    for (int i = 0; i < lista.getTamanio() ; ++i) {
+    for (int i = 0; i < tamLista ; ++i) {
         if (HashMap.copiar(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))){
             array[j] = lista.getDato(i);
             lista_2.insertarPrimero(lista.getDato(i));
             j++;
         }
-
     }
     int tamL2=lista_2.getTamanio();
     bubbleAlfabetico(array, tamL2);
-    if (c!=0){
-        for (int j = 0; j <= c; j++) {
-            print(array[tamL2]);
+    if (c>0){
+        for (int j = 0; j < c; j++) {
+            print(array[j]);
         }
     }else {
         for (int i=0; i<= tamL2; i++){
@@ -234,8 +233,8 @@ void txtMng::ocurrencias(int c) {
         array[i] = lista_2.getDato(i);
     }
     bubbleSort(array, tamL2);
-    if (c!=0){
-        for (int j = 0; j <= c; j++) {
+    if (c>0){
+        for (int j = tamL2; j>tamL2 - c - 1; j--) {
             print(array[j]);
            }
     }else {
@@ -247,7 +246,7 @@ void txtMng::ocurrencias(int c) {
 
 
 void txtMng::excluir(string Ex, int con) {
-        ifstream exc(Ex);   // archivo de lectura
+        exc.open(Ex, ios::in);// archivo de lectura
         if (!exc)         // si no abre alguno de los 2 archivos, mandamos error
         {
             stringstream excluir(Ex);

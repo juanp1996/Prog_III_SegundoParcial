@@ -13,8 +13,6 @@ void HashMap::NewTable(unsigned int tam) {
 
 void HashMap::newNodo(long K, string valor) {
     setPos(K);
-    cout<<"Clave: "<<K<<endl;
-    cout<<"Posicion: "<<getPos()<<endl;
     int p = getPos();
     put(p,K,valor);
 }
