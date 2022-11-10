@@ -25,6 +25,7 @@ public:
     void setPos(long);
     int getPos();
     bool copiar(long k);
+    bool existe(long );
 
 
     void excluir(long);

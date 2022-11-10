@@ -85,3 +85,15 @@ bool HashMap::copiar(long k){
 }
 void HashMap::setOcurrenciasTotales(int o) {this->ocurrenciasTotales = o;}
 int HashMap::getOcurrenciasTotales() { return ocurrenciasTotales;}
+
+bool HashMap::existe(long k ) {
+    setPos(k);
+    int i = getPos();
+    while (tabla[i] != NULL){
+        if (k == tabla[getPos()]->getClave()) {
+            return true;
+        }
+        i++;
+    }
+    return false;
+}

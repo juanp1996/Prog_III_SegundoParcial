@@ -48,6 +48,7 @@ public:
     HashMap HashMap;
     Lista <string> lista;
     Lista <string> lista_2;
+    Lista <string> liEx;
     char *aux;
     string auxiliar;
 

@@ -249,13 +249,19 @@ void txtMng::excluir(string Ex, int con) {
         exc.open(Ex, ios::in);// archivo de lectura
         if (!exc)         // si no abre alguno de los 2 archivos, mandamos error
         {
+            cout<<"No es un archivo"<<endl;
             stringstream excluir(Ex);
+            cout<<Ex<<endl;
             while (getline(excluir,palabra,','))
             {
+                cout<<palabra<<endl;
                 checkPalabra();
+                cout<<palabra<<endl;
                 stringstream p(palabra);
-                lista_2.insertarPrimero(getPalabra());
+                liEx.insertarPrimero(getPalabra());
             }
+            cout<<endl;
+            liEx.print();
         }
         else
         {
@@ -265,12 +271,12 @@ void txtMng::excluir(string Ex, int con) {
                 while (getline(s, palabra, ' ')) {
                     stringstream p(palabra);
                     checkPalabra();
-                    lista_2.insertarPrimero(getPalabra());
+                    liEx.insertarPrimero(getPalabra());
                 }
             }
         }
-        for (int i = 0; i < lista_2.getTamanio(); ++i) {
-            HashMap.copiar(nodo.djb2(lista_2.getDato(i),lista_2.getDato(i).length()));
+        for (int i = 0; i < liEx.getTamanio(); ++i) {
+            HashMap.copiar(nodo.djb2(liEx.getDato(i),liEx.getDato(i).length()));
         }
         if(con==1){
             palabras(0);
@@ -281,25 +287,32 @@ void txtMng::excluir(string Ex, int con) {
 
 
 void txtMng::mostrar(string str_argv) {
+    int j = 0;
+    string array[getCantPalabras() - HashMap.getOcurrenciasTotales()];
     stringstream s( str_argv);
     while (getline(s,palabra,','))
     {
+        cout<<palabra<<endl;
         checkPalabra();
         stringstream p(palabra);
         lista_2.insertarPrimero(palabra);
+        cout<<lista_2.getDato(0)<<endl;
     }
-    for (int i = 0; i < lista_2.getTamanio() ; ++i) {
-        if (HashMap.copiar(nodo.djb2(lista_2.getDato(i),lista_2.getDato(i).length())))
-        {
-            lista_2.insertarConOcurrencia(i,lista_2.getDato(i), HashMap.getOcurrenciasHash(
-                    nodo.djb2(lista_2.getDato(i), lista_2.getDato(i).length())));
+    lista_2.print();
+    for (int i = 0; i < lista_2.getTamanio(); ++i) {
+        if (HashMap.existe(nodo.djb2(lista_2.getDato(i), lista_2.getDato(i).length()))) {
+            cout<<"true"<<endl;
+            array[j] = lista_2.getDato(i);
+            cout<<"Copio la palabra: "<<lista_2.getDato(i)<<endl;
+            j++;
+            cout<<"j: "<<j<<endl;
+        } else{
+            cout<<"La palabra "<<lista_2.getDato(i)<<" no esta en el texto"<<endl;
         }
     }
-    //quickSort(lista_2,0,lista_2.getTamanio());
-    int tamL2=lista_2.getTamanio();
-    for (int i = 0; i < lista_2.getTamanio() ; ++i) {
-        print(lista_2.getDato(tamL2));
-        tamL2--;
+    bubbleSort(array, j);
+    for (int i = j; i>=0; i--) {
+        print(array[i]);
     }
 }
 
@@ -319,8 +332,11 @@ void txtMng::bubbleSort(string *array, int tam) {
                 {
                     seguir = true;
                     aux = array[j + 1];
+                    cout<<aux<<endl;
                     array[j + 1] = array[j];
+                    cout<<array[j+1]<<endl;
                     array[j] = aux;
+                    cout<<array[j]<<endl;
                 }
             }
         }

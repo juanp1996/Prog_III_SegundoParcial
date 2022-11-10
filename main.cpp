@@ -46,77 +46,26 @@ int main(int argc , char **argv)  //argc: Cant de arg  -- argv: C/U de los argum
             string a = argv[3];
             txtMng.openFile(a);
             txtMng.ocurrencias(atoi(argv[2]));
+        } else if (strcmp(argv[1], "-mostrar")==0){
+            string a = argv[3];
+            txtMng.openFile(a);
+            txtMng.mostrar(argv[2]);
         }
     }
     if (argc == 5){
-        if (argv[1]=="-palabras"){
-            if (argv[2]=="-excluir" || argv[2]=="-excluirf"){
-                txtMng.openFile(argv[5]);
-                txtMng.excluir(argv[4] , 1);
+        if (strcmp(argv[1], "-palabras") == 0){
+            if ((strcmp(argv[2], "-excluir") == 0) || (strcmp(argv[2], "-excluirf") == 0)){
+                txtMng.openFile(argv[4]);
+                txtMng.excluir(argv[3] , 1);
             }else
                 cout<<"argumento invalido"<<endl;
-
         }else if (strcmp(argv[1], "-ocurrencias") == 0){
             if ((strcmp(argv[2], "-excluir") == 0) || (strcmp(argv[2], "-excluirf") == 0)){
-                txtMng.openFile(argv[2]);
-                txtMng.excluir(argv[4] , 2);
+                txtMng.openFile(argv[4]);
+                txtMng.excluir(argv[3] , 2);
             }
-            cout<<"argumento invalido"<<endl;
         }
     }
 
-    /*
-    switch (argc) {
-        case 1:
-            cout << "Por favor ingresar argumento. Ej. '-palabras' " << endl;
-            break;
-        case 2:
-            cout<<"1"<<endl;
-            txtMng.openFile(argv[2]);
-            txtMng.basic();
-            break;
-        case 3:
-            if (argv[2]=="-palabras"){
-                cout<<"2"<<endl;
-                txtMng.openFile(argv[3]);
-                txtMng.palabras(0);
-            }else if (argv[2]=="-ocurrencias"){
-                txtMng.openFile(argv[3]);
-                txtMng.ocurrencias(0);
-            }
-            break;
-        case 4:
-            if(argv[2]== "-palabras"){
-                if (atoi(argv[3])!=0)
-                {
-                    txtMng.openFile(argv[4]);
-                    txtMng.palabras(atoi(argv[3]));
-                }
-            }
-            if(argv[2]=="-mostrar"){
-                txtMng.openFile(argv[4]);
-                txtMng.mostrar(argv[3]); //funciona para 1 palabra o para varias entre " "
-            }
-            break;
-        case 5:
-            if (argv[2]=="-palabras"){
-                if (argv[3]=="-excluir" || argv[3]=="-excluirf"){
-                    txtMng.openFile(argv[5]);
-                    txtMng.excluir(argv[4] , 1);
-                }else
-                    cout<<"argumento invalido"<<endl;
-
-            }else if (argv[2]=="-ocurrencias")
-                if (argv[3]=="-excluir" || argv[3]=="-excluirf"){
-                    txtMng.openFile(argv[5]);
-                    txtMng.excluir(argv[4] , 2);
-                }
-                    cout<<"argumento invalido"<<endl;
-            break;
-        default:
-            cout<<"argumentos invalidos"<<endl;
-            break;
-
-    }*/
     return 0;
 }
