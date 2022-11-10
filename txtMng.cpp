@@ -202,7 +202,6 @@ void txtMng::palabras(int c){
 }
 
 void txtMng::ocurrencias(int c) {
-    //cout<<"Entro a ocurrencias"<<endl;
     int j = 0;
     int largo = Cant_palabras - HashMap.getOcurrenciasTotales();
     //cout<<"Largo: "<<largo<<endl;
@@ -296,18 +295,19 @@ void txtMng::mostrar(string str_argv) {
     lista_2.print();
     for (int i = 0; i < lista_2.getTamanio(); ++i) {
         if (HashMap.existe(nodo.djb2(lista_2.getDato(i), lista_2.getDato(i).length()))) {
-            cout<<"true"<<endl;
+            //cout<<"true"<<endl;
             array[j] = lista_2.getDato(i);
-            cout<<"Copio la palabra: "<<lista_2.getDato(i)<<endl;
+            //cout<<"Copio la palabra: "<<lista_2.getDato(i)<<endl;
             j++;
-            cout<<"j: "<<j<<endl;
+            //cout<<"j: "<<j<<endl;
         } else{
-            cout<<"La palabra "<<lista_2.getDato(i)<<" no esta en el texto"<<endl;
+            //cout<<"La palabra "<<lista_2.getDato(i)<<" no esta en el texto"<<endl;
         }
     }
     bubbleSort(array, j);
     for (int i = j; i>=0; i--) {
         print(array[i]);
+        cout<<" -- "<<HashMap.getOcurrenciasHash(nodo.djb2(array[i], array[i].length()))<<endl;
     }
 }
 
