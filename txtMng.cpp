@@ -49,11 +49,8 @@ void txtMng::primerPasada() {
 
     for (int i=0; i<lista.getTamanio(); i++){
         HashMap.newNodo(nodo.djb2(lista.getDato(i), lista.getDato(i).length()), lista.getDato(i));
-        cout<<"Palabra: "<<lista.getDato(i);
     }
-
-
-    cout<<"Termino primera pasada"<<endl;
+    //cout<<"Termino primera pasada"<<endl;
 }
 
 // checkea/corrige comienzo y fin de palabra recursivamente , si esta mal corrige
@@ -195,7 +192,8 @@ void txtMng::basic()
 
 void txtMng::palabras(int c){
     int j = 0;
-    string array[getCantPalabras() - HashMap.getOcurrenciasTotales()];
+    string array[Cant_palabras - HashMap.getOcurrenciasTotales()];
+
     int tamLista = lista.getTamanio();
     for (int i = 0; i < tamLista ; ++i) {
         if (HashMap.copiar(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))){
@@ -204,6 +202,7 @@ void txtMng::palabras(int c){
             j++;
         }
     }
+
     int tamL2=lista_2.getTamanio();
     bubbleAlfabetico(array, tamL2);
     if (c>0){
@@ -215,41 +214,44 @@ void txtMng::palabras(int c){
             print(array[i]);
         }
     }
+    cout<<"Cantidad de palabras diferentes: "<<tamL2<<endl;
 }
 
 void txtMng::ocurrencias(int c) {
-    cout<<"Entro a ocurrencias"<<endl;
+    //cout<<"Entro a ocurrencias"<<endl;
     int j = 0;
-    string array[getCantPalabras() - HashMap.getOcurrenciasTotales()];
-    int tamLista = lista.getTamanio();
-    for (int i = 0; i < tamLista; ++i) {
-        cout<<"Dato: "<<i<<": "<<lista.getDato(i)<<endl;
-        if (HashMap.copiar(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))) {
-            cout<<"true"<<endl;
+    int largo = Cant_palabras - HashMap.getOcurrenciasTotales();
+    //cout<<"Largo: "<<largo<<endl;
+    string array[largo];
+    for (int i = 0; i < lista.getTamanio(); ++i) {
+        //cout<<"Dato: "<<i<<": "<<lista.getDato(i)<<endl;
+        if (HashMap.getFlagTB(nodo.djb2(lista.getDato(i), lista.getDato(i).length()))) {
+            //cout<<"true"<<endl;
+            HashMap.setFlagTB(nodo.djb2(lista.getDato(i), lista.getDato(i).length()),false );
             array[j] = lista.getDato(i);
-            lista_2.insertarPrimero(lista.getDato(i));
-            cout<<"Copio la palabra"<<endl;
+            //cout<<"Copio la palabra"<<endl;
             j++;
         }
     }
-    int tamL2=lista_2.getTamanio();
-
-    for (int i=0 ; i<tamL2; i++){
-        array[i] = lista_2.getDato(i);
-    }
-    bubbleSort(array, tamL2);
+    cout<<"Salio del bucle"<<endl;
+    bubbleSort(array, j);
     cout<<"YA ORDENO"<<endl;
+
     if (c>0){
-        for (int j = tamL2; j>tamL2 - c - 1; j--) {
+        for (int i = j; i>j - c - 1; i--) {
             print(array[j]);
            }
         cout<<"TERMINO OCURRENCIAS"<<endl;
         cout<<"Tamanio lista: "<<lista_2.getTamanio();
     }else {
-        for (int i=0; i<=tamL2; i++){
+        for (int i=j; i>=0; i--){
             print(array[i]);
         }
     }
+    cout<<endl;
+    cout<<"Printeamos la de mas ocurrencias arriba y la de menos debajo"<<endl;
+    cout<<endl;
+    cout<<"Tamaño array: "<< j<<endl;
 }
 
 
@@ -329,6 +331,7 @@ void txtMng::print(string p){
 }
 
 void txtMng::bubbleSort(string *array, int tam) {
+    //cout<<"entro al sort"<<endl;
         string aux;
         bool seguir = true;
         for (int i = 0; i < tam - 1 && seguir; i++)
@@ -340,11 +343,11 @@ void txtMng::bubbleSort(string *array, int tam) {
                 {
                     seguir = true;
                     aux = array[j + 1];
-                    cout<<aux<<endl;
+                    //cout<<"Auxiliar: "<<aux<<endl;
                     array[j + 1] = array[j];
-                    cout<<array[j+1]<<endl;
+                    //cout<<"Siguiente: "<<array[j+1]<<endl;
                     array[j] = aux;
-                    cout<<array[j]<<endl;
+                    //cout<<"Nuevo: "<<array[j]<<endl;
                 }
             }
         }

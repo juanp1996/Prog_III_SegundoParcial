@@ -14,7 +14,6 @@ void HashMap::NewTable(unsigned int tam) {
 void HashMap::newNodo(long long K, string valor) {
     setPos(K);
     int p = getPos();
-    cout<<"Pos: "<<getPos()<<endl;
     put(p,K,valor);
 }
 
@@ -95,6 +94,31 @@ bool HashMap::existe(long long k ) {
     while (tabla[i] != NULL){
         if (k == tabla[getPos()]->getClave()) {
             return true;
+        }
+        i++;
+    }
+    return false;
+}
+
+void HashMap::setFlagTB(long long k, bool f){
+    setPos(k);
+    int i = getPos();
+    while (tabla[i] != NULL){
+        if (k == tabla[getPos()]->getClave()) {
+            tabla[getPos()]->setFlag(f);
+        }
+        i++;
+    }
+}
+
+
+
+bool HashMap::getFlagTB(long long k){
+    setPos(k);
+    int i = getPos();
+    while (tabla[i] != NULL){
+        if (k == tabla[getPos()]->getClave()) {
+            return tabla[getPos()]->getFlag();
         }
         i++;
     }

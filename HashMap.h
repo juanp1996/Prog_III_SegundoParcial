@@ -26,7 +26,8 @@ public:
     int getPos();
     bool copiar(long long k);
     bool existe(long long );
-
+    void setFlagTB(long long , bool);
+    bool getFlagTB(long long);
 
     void excluir(long long);
     int getOcurrenciasHash(long long);
